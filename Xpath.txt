@@ -1,0 +1,13 @@
+Links = //div/h2/a/@href
+
+Title = //div[@class = "mb-auto"]/h2/span/text()
+
+Abstract = //div[@class = "lead"]/p/text()
+
+Body = //div[@class = "html-content"]/p//text()
+
+## Just in case of improving the project
+
+Date = //span[@class="date"]/text() 
+
+Author = //div[@class="author-article"]/div/button/text()
