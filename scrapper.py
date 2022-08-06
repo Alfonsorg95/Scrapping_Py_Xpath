@@ -10,6 +10,8 @@ XPATH_LINK_TO_ARTICLE = '//div/text-fill/a[@class and contains(@href,"larepublic
 XPATH_TITLE = '//div[@class = "mb-auto"]/h2/span/text()'
 XPATH_SUMMARY = '//div[@class = "lead"]/p/text()'
 XPATH_BODY = '//div[@class = "html-content"]/p//text()'
+XPATH_DATE = '//span[@class="date"]/text()'
+XPATH_AUTHOR = '//div[@class="author-article"]/div/button/text()'
 
 
 def parse_news(link, today):
@@ -23,12 +25,24 @@ def parse_news(link, today):
                 title = parsed.xpath(XPATH_TITLE)[0]
                 title = title.replace('\"','').strip()
                 
-                if parsed.xpath(XPATH_SUMMARY)[0]:
+                print(parsed.xpath(XPATH_SUMMARY))
+                if parsed.xpath(XPATH_SUMMARY):
                     summary = parsed.xpath(XPATH_SUMMARY)[0]
                 else:
                     summary = None
                 
                 body = parsed.xpath(XPATH_BODY)
+                print(parsed.xpath(XPATH_DATE))
+                if parsed.xpath(XPATH_DATE): 
+                    news_date = parsed.xpath(XPATH_DATE)[0]
+                else:
+                    news_date = 'No date'
+                print(parsed.xpath(XPATH_AUTHOR))
+                if parsed.xpath(XPATH_AUTHOR):
+                    author = parsed.xpath(XPATH_AUTHOR)[0]
+                else:
+                    author = 'No author'
+                    print(author)
 
             except IndexError:
                 return
@@ -42,6 +56,10 @@ def parse_news(link, today):
                 for p in body:
                     f.write(p)
                     f.write('\n')
+                f.write('\n')
+                f.write(news_date)
+                f.write('\n')
+                f.write(author)
 
         else:
             raise ValueError(f'Error: {response.status_code}')
