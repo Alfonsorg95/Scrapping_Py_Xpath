@@ -42,7 +42,7 @@ def parse_news(link, today):
                     author = parsed.xpath(XPATH_AUTHOR)[0]
                 else:
                     author = 'No author'
-                    print(author)
+                
 
             except IndexError:
                 return
